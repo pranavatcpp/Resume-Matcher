@@ -9,7 +9,7 @@ keyword insertion, or iterative ATS optimization pipeline.
 1. Receive a saved JD, canonical Markdown CV, and Step 3 record. Require
    `screening.decision` equal to `pass`; reject `status: rejected_code`.
    Collection, eligibility rules and H-1B verification belong to the parent agent.
-2. Use local `qwen3.5:4b` to select two projects and exact canonical skills.
+2. Use local `nemotron-3.5-bolt:e4b-nvfp4` to select two projects and exact canonical skills.
 3. Give the model one experience/project at a time to select and shorten bullets.
    Each bullet must reference an ID from that same entry. Names, titles, dates,
    education and project technology lines come directly from the canonical CV.
@@ -66,7 +66,7 @@ The adapter does not update the parent agent's state or launch its scheduler.
 
 ## Limits and checks
 
-A 4B model can still introduce semantic overclaims that simple checks miss.
+A small local model can still introduce semantic overclaims that simple checks miss.
 Every paraphrase therefore requires human/manual final review against the ledger.
 The one-page check verifies pagination; it does not prove good visual layout.
 Model quality and speed must be measured locally before enabling unattended builds.
@@ -79,3 +79,8 @@ PYTHONPATH=apps/backend python -m unittest discover -s apps/backend/tests/job_bu
 ```
 
 Keep CVs, JDs, templates and generated artifacts outside this public repository.
+
+The jobs workflow defaults to Nemotron for both evidence matching and this builder.
+There is no automatic model fallback. An explicit `--model` is a manual override.
+On the host, Ollama is configured with `OLLAMA_MAX_LOADED_MODELS=1` and
+`OLLAMA_NUM_PARALLEL=1` so only one model is resident and inference is serialized.

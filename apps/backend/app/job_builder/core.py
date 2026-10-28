@@ -15,7 +15,7 @@ from app.services.resume_preservation import _novel_numbers
 from app.services.text_match import keyword_in_text
 
 VERSION = "local-builder-v1"
-MODEL = "qwen3.5:4b"
+MODEL = "nemotron-3.5-bolt:e4b-nvfp4"
 
 
 @dataclass
