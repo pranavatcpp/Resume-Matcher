@@ -1,13 +1,21 @@
-"""Business logic services."""
+"""Business logic services, loaded lazily for lightweight local tools."""
 
-from app.services.improver import generate_improvements, improve_resume
-from app.services.parser import parse_document, parse_resume_to_json
-from app.services.refiner import refine_resume
+from importlib import import_module
+from typing import Any
 
-__all__ = [
-    "parse_document",
-    "parse_resume_to_json",
-    "improve_resume",
-    "generate_improvements",
-    "refine_resume",
-]
+_EXPORTS = {
+    "generate_improvements": "improver",
+    "improve_resume": "improver",
+    "parse_document": "parser",
+    "parse_resume_to_json": "parser",
+    "refine_resume": "refiner",
+}
+__all__ = list(_EXPORTS)
+
+
+def __getattr__(name: str) -> Any:
+    if name not in _EXPORTS:
+        raise AttributeError(name)
+    value = getattr(import_module(f"app.services.{_EXPORTS[name]}"), name)
+    globals()[name] = value
+    return value

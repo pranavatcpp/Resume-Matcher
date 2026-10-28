@@ -1,0 +1,15 @@
+{
+  "expected": { "2": "SKILLS", "5": "EXPERIENCE", "16": "PROJECTS", "35": "EDUCATION" },
+  "name": 0,
+  "contact": 1,
+  "skills_heading": 2,
+  "skill": 4,
+  "experience_heading": 5,
+  "entry_heading": 6,
+  "metadata": 7,
+  "bullet": 8,
+  "projects_heading": 16,
+  "project_heading": 17,
+  "education_heading": 35,
+  "education_name": 36
+}
